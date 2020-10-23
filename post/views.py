@@ -87,3 +87,34 @@ def PostDetails(request, post_id):
 
 	return HttpResponse(template.render(context, request))  
 '''
+
+@login_required
+def NewPost(request):
+	user = request.user.id
+	tags_objs = []
+
+	if request.method == 'POST':
+		form = NewPostForm(request.POST, request.FILES)
+		if form.is_valid():
+			picture = form.cleaned_data.get('picture')
+			caption = form.cleaned_data.get('caption')
+			tags_form = form.cleaned_data.get('tags')
+
+			tags_list = list(tags_form.split(','))
+
+			for tag in tags_list:
+				t, created = Tag.objects.get_or_create(title=tag)
+				tags_objs.append(t)
+
+			p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
+			p.tags.set(tags_objs)
+			p.save()
+			return redirect('index')
+	else:
+		form = NewPostForm()
+
+	context = {
+		'form':NewPostForm,
+	}
+
+	return render(request, 'newpost.html', context)

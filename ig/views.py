@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .forms import SignupForm, ChangePasswordForm, EditProfileForm
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, logout
 
 from .models import Profile, Message
 from post.models import Post, Follow, Stream
@@ -97,6 +97,10 @@ def login(request):
 	}
     return render(request, 'login.html',context)
 
+def logout(request):
+    logout(request)
+    return redirect('login')
+
 def Signup(request):
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
@@ -114,29 +118,6 @@ def Signup(request):
 	}
 
 	return render(request, 'signup.html', context)
-
-@login_required
-def PasswordChange(request):
-	user = request.user
-	if request.method == 'POST':
-		form = ChangePasswordForm(request.POST)
-		if form.is_valid():
-			new_password = form.cleaned_data.get('new_password')
-			user.set_password(new_password)
-			user.save()
-			update_session_auth_hash(request, user)
-			return redirect('change_password_done')
-	else:
-		form = ChangePasswordForm(instance=user)
-
-	context = {
-		'form':form,
-	}
-
-	return render(request, 'change_password.html', context)
-
-def PasswordChangeDone(request):
-	return render(request, 'change_password_done.html')
 
 @login_required
 def EditProfile(request, username):

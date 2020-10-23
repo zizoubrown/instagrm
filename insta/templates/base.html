@@ -40,9 +40,7 @@
                 <a href="{% url 'profile' request.user %} "><i class="far fa-user "></i></a>
                 <a href="{% url 'newpost' %} "><i class="fas fa-location-arrow " style="background-color: transparent; "></i>
                 </a>
-                <a href="{% url 'show-notifications' %} "> <i class="far fa-heart "></i> {% if count_notifications %}
-                    <span class="badge badge-danger ml-2 ">{{ count_notifications }}</span> {% endif %}
-                </a>
+                
                 <a href="{% url 'inbox' %} "><i class="far fa-envelope "></i>
                      {% if directs_count %}
                     <span class="badge badge-danger ml-2 ">{{ directs_count }}</span> {% endif %}

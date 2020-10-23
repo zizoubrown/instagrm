@@ -282,6 +282,7 @@ def SendDirect(request):
 		return redirect('inbox')
 	else:
 		HttpResponseBadRequest()
+		
 def checkDirects(request):
 	directs_count = 0
 	if request.user.is_authenticated:

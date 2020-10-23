@@ -18,10 +18,15 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from ig.views import UserProfile, UserProfileFavorites, follow
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('post.urls')),
     path('ig/', include('ig.urls')),
+    path('profile/<username>/', UserProfile, name='profile'),
+    path('profile/<username>/saved', UserProfile, name='profilefavorites'),
+    path('profile/<username>/follow/<option>', follow, name='follow'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,104 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<article class="media">
+
+    <div class="media-left">
+        <figure class="image is-256x256">
+            {% if profile.picture %}
+            <img class="rounded-circle account-img" src="{{ profile.picture.url }}"> {% else %}
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png"> {% endif %}
+        </figure>
+    </div>
+
+    <div class="media-content">
+        <div class="content">
+            <div class="profile-user-settings">
+                <h1 style="font-weight: bold;" class="title is-1">{% if profile.first_name %}{{ profile.first_name }} {{ profile.last_name }} {% endif %}</h1>
+                <h2 class="subtitle is-3">@{{ profile.user }}</h2>
+                {% if user.is_authenticated and user != profile.user %}
+                <div class="media-right">
+                    {% if follow_status == True %}
+                    <a href="{% url 'follow' profile.user 0 %}" class="btn btn-danger btn-rounded">Unfollow</a> {% else %}
+                    <a href="{% url 'follow' profile.user 1 %}" class="btn btn-default btn-rounded">Follow</a> {% endif %}
+                </div>
+                {% endif %} {% if user.is_authenticated and user == profile.user %}
+                <a href="{% url 'edit-profile' profile.user %}"><button type="button" class="btn btn-light">Edit profile</button></a>
+                <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button> {% if user.is_authenticated and user != profile.user %}{% endif %}{% endif %}
+            </div>
+            <div class="profile-stats">
+
+                <ul>
+                    <li><span class="profile-stat-count">{{ posts_count }}</span> posts</li>
+                    <li><span class="profile-stat-count">{{ followers_count }}</span> followers</li>
+                    <li><span class="profile-stat-count">{{ following_count }}</span> following</li>
+                </ul>
+            </div>
+
+            <div class="profile-bio">
+
+                <p>{% if profile.profile_info %}{{ profile.profile_info }}{% endif %} 📷✈️🏕️</p>
+
+            </div>
+        </div>
+</article>
+
+
+</div>
+</div>
+
+
+
+</div>
+</section>
+
+
+
+<section class="section">
+    <div class="container">
+
+        <div class="profile-stats offset-5">
+            <ul class="profile-stat-count">
+                <li class="{% if url_name == 'profile' %}is-active{% endif %}">
+                    <a href="{% url 'profile' profile.user %}"><i class="fas fa-th-large" style="color: black;"></i></a>
+                </li>
+
+                <li class="{% if url_name == 'profilefavorites' %}is-active{% endif %}">
+                    <a href="{% url 'profilefavorites' profile.user %}"><i class="far fa-bookmark" style="color: black;"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <main>
+
+            <div class="container">
+
+                <div class="gallery">
+                    {% for post in posts %}
+                    <div class="row">
+                        <div class="col-sm-4 my-2" style="width: 95rem;">
+                            <div class="gallery-item" tabindex="0">
+
+                                <img src="{{ post.picture.url }}" class="gallery-image" alt="">
+
+                                <div class="gallery-item-info">
+
+                                    <ul>
+                                        <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i>{{ post_item.likes }} 56</li>
+                                        <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <br>
+                    <h3 class="title is-3 ">You do not have any post!</h3>
+                    {% endfor %}
+
+                </div>
+        </main>
+        </div>
+</section>
+{% endblock %}

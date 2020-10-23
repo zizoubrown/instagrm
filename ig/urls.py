@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import UserProfile, Signup, PasswordChange, PasswordChangeDone, 
-                    EditProfile, Inbox, UserSearch, Directs, NewConversation, SendDirect
+from .views import UserProfile, Signup, PasswordChange, PasswordChangeDone, EditProfile, Inbox, UserSearch, Directs, NewConversation, SendDirect
 
-#from django.contrib.auth import views as authViews
+from django.contrib.auth import views as authViews
 
 urlpatterns = [
     path('profile/<username>/edit', EditProfile, name='edit-profile'),

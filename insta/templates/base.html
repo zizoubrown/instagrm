@@ -19,6 +19,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/insta.css' %}">
     <link rel='icon' href="{% static 'img/insta.png' %}">
+
+    {% block styles %}
+        {% bootstrap_css %}
+    {% endblock %}
+
 </head>
 
 <body>
@@ -52,7 +57,10 @@
     <div class="content-container ">
         {% block content %} {%endblock%}
 
-
+        {% block scripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        {% bootstrap_javascript %}
+        {% endblock %}
 
         <!-- JQuery -->
         <script type="text/javascript " src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>

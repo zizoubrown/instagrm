@@ -22,4 +22,4 @@ urlpatterns = [
     path('', include('post.urls')),
     path('ig/', include('ig.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

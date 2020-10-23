@@ -65,3 +65,36 @@ class Follow(models.Model):
 
 		notify = Notification.objects.filter(sender=sender, user=following, notification_type=3)
 		notify.delete()
+
+class Stream(models.Model):
+    following = models.ForeignKey(User, on_delete=models.CASCADE,null=True, related_name='stream_following')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)   
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    date = models.DateTimeField()
+
+    def add_post(sender, instance, *args, **kwargs):
+    	post = instance
+    	user = post.user
+    	followers = Follow.objects.all().filter(following=user)
+    	for follower in followers:
+    		stream = Stream(post=post, user=follower.follower, date=post.posted, following=user)
+    		stream.save()
+
+class Likes(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_like')
+
+	def user_liked_post(sender, instance, *args, **kwargs):
+		like = instance
+		post = like.post
+		sender = like.user
+		notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
+		notify.save()
+
+	def user_unlike_post(sender, instance, *args, **kwargs):
+		like = instance
+		post = like.post
+		sender = like.user
+
+		notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
+		notify.delete()

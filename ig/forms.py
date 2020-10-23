@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from .models import Profile
+from .models import Profile, Comment
 
 def ForbiddenUsers(value):
 	forbidden_users = ['admin', 'css', 'js', 'authenticate', 'login', 'logout', 'administrator', 'root',
@@ -82,3 +82,10 @@ class EditProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
 		fields = ('picture', 'first_name', 'last_name', 'location', 'url', 'profile_info')
+
+class CommentForm(forms.ModelForm):
+	body = forms.CharField(widget=forms.Textarea(attrs={'class': 'textarea'}), required=True)
+
+	class Meta:
+		model = Comment
+		fields = ('body',)

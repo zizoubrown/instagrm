@@ -33,16 +33,19 @@
 ### Important packages used in app development.
 
 ```
-confusable-homoglyphs==3.1.1
-Django==1.11
-django-bootstrap3==10.0.1
-django-registration==2.4.1
-django-tinymce==2.7.0
-gunicorn==19.9.0
-Pillow==5.2.0
-psycopg2==2.7.5
-python-decouple==3.1
-pytz==2018.5
+beautifulsoup4==4.9.3
+config==0.5.0.post0
+dj-database-url==0.5.0
+Django==3.1.2
+django-bootstrap4==2.3.1
+django-heroku==0.3.1
+gunicorn==20.0.4
+Pillow==8.0.1
+psycopg2==2.8.6
+python-decouple==3.3
+whitenoise==5.2.0
+zipp==3.3.1
+
 ```
 
 ## Technologies Used

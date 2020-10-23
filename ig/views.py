@@ -135,3 +135,29 @@ def PasswordChange(request):
 
 def PasswordChangeDone(request):
 	return render(request, 'change_password_done.html')
+
+@login_required
+def EditProfile(request, username):
+	user = get_object_or_404(User, username=username)
+	profile = Profile.objects.get(user=user)
+	BASE_WIDTH = 400
+
+	if request.method == 'POST':
+		form = EditProfileForm(request.POST, request.FILES)
+		if form.is_valid():
+			profile.picture = form.cleaned_data.get('picture')
+			profile.first_name = form.cleaned_data.get('first_name')
+			profile.last_name = form.cleaned_data.get('last_name')
+			profile.location = form.cleaned_data.get('location')
+			profile.url = form.cleaned_data.get('url')
+			profile.profile_info = form.cleaned_data.get('profile_info')
+			profile.save()
+			return HttpResponseRedirect(reverse('profile', args=[username]))
+	else:
+		form = EditProfileForm()
+
+	context = {
+		'form':form,
+	}
+
+	return render(request, 'edit_profile.html', context)

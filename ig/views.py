@@ -267,3 +267,24 @@ def NewConversation(request, username):
 	if from_user != to_user:
 		Message.send_message(from_user, to_user, body)
 	return redirect('inbox')
+
+@login_required
+def SendDirect(request):
+	# to_user = User.objects.get(username=username)
+    
+	from_user = request.user
+	to_user_username = request.POST.get('to_user')
+	body = request.POST.get('body')
+	
+	if request.method == 'POST':
+		to_user = User.objects.get(username=to_user_username)
+		Message.send_message(from_user, to_user, body)
+		return redirect('inbox')
+	else:
+		HttpResponseBadRequest()
+def checkDirects(request):
+	directs_count = 0
+	if request.user.is_authenticated:
+		directs_count = Message.objects.filter(user=request.user, is_read=False).count()
+
+	return {'directs_count':directs_count}

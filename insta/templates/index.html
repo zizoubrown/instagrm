@@ -4,7 +4,7 @@
     <div class="card_header">
         <div class="profile_image">
             {% if post_item.user.profile.picture %}
-            <img src="{{ post_item.user.profile.picture.url }}" alt="Placeholder image"> {% endif %}
+            <img src="{{ post_item.user.profile.picture.url }}" width="200" height="121" alt="Placeholder image"> {% endif %}
         </div>
         <div class="post_info">
             <div class="post_name">
@@ -24,7 +24,7 @@
 
 
     <div class="post_image">
-        <a href="{{ post_item.get_absolute_url }}"><img src="{{ post_item.picture.url }}" alt="Placeholder image"></a>
+        <a href="{{ post_item.get_absolute_url }}"><img src="{{ post_item.picture.url }}" width="700" height="500" alt="Placeholder image"></a>
     </div>
     <div class="engagement">
         <a href="#"><i class="fas fa-heart" style="color: red;">{{post.likes}}</i></a>

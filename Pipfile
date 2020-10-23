@@ -5,6 +5,16 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-bootstrap4 = "*"
+pillow = "*"
+whitenoise = "*"
+gunicorn = "*"
+psycopg2 = "*"
+python-decouple = "*"
+django-heroku = "*"
+config = "*"
+importlib-metadata = "*"
+zipp = "*"
 
 [dev-packages]
 

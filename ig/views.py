@@ -5,16 +5,18 @@ from .forms import SignupForm, ChangePasswordForm, EditProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
-from .models import Profile
+from .models import Profile, Message
 from post.models import Post, Follow, Stream
 from django.db import transaction
-from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
+from django.template import loader, RequestContext
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse
 
 from django.core.paginator import Paginator
 
 from django.urls import resolve
+
+from django.db.models import Q
 
 # Create your views here.
 def UserProfile(request, username):
@@ -183,3 +185,30 @@ def follow(request, username, option):
 		return HttpResponseRedirect(reverse('profile', args=[username]))
 	except User.DoesNotExist:
 		return HttpResponseRedirect(reverse('profile', args=[username]))
+
+@login_required
+def Inbox(request):
+	users = User.objects.all()
+	messages = Message.get_messages(user=request.user)
+	active_direct = None
+	directs = None
+
+	if messages:
+		message = messages[0]
+		active_direct = message['user'].username
+		directs = Message.objects.filter(user=request.user, recipient=message['user'])
+		directs.update(is_read=True)
+		for message in messages:
+			if message['user'].username == active_direct:
+				message['unread'] = 0
+
+	context = {
+		'directs': directs,
+		'messages': messages,
+		'active_direct': active_direct,
+		'users':users,
+		}
+
+	template = loader.get_template('direct/direct.html')
+
+	return HttpResponse(template.render(context, request))

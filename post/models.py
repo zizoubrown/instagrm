@@ -6,7 +6,7 @@ from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 
-from ig.models import Notification, User
+from notifications.models import Notification
 
 # Create your models here.
 def user_directory_path(instance, filename):

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserProfile, Signup, EditProfile, Inbox, UserSearch, Directs, NewConversation, SendDirect, ShowNOtifications, DeleteNotification
+from .views import UserProfile, Signup, EditProfile, Inbox, UserSearch, Directs, NewConversation, SendDirect
 from .forms import SignupForm
 
 from django.contrib.auth import views as authViews
@@ -15,7 +15,4 @@ urlpatterns = [
    	path('new/', UserSearch, name='usersearch'),
    	path('new/<username>', NewConversation, name='newconversation'),
    	path('send/', SendDirect, name='send_direct'),
-	
-	path('notification/', ShowNOtifications, name='show-notifications'),
-   	path('<noti_id>/delete', DeleteNotification, name='delete-notification'),
 ]

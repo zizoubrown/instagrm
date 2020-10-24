@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'ig',
     'post',
     'bootstrap4',
+    'notifications',
 ]
 
 MIDDLEWARE = [

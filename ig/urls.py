@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import UserProfile, Signup, EditProfile, Inbox, UserSearch, Directs, NewConversation, SendDirect
+from .forms import SignupForm
 
 from django.contrib.auth import views as authViews
 

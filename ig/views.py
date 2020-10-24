@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .forms import SignupForm, ChangePasswordForm, EditProfileForm
+from .forms import SignupForm, EditProfileForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash, logout

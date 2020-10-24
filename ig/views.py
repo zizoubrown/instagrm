@@ -120,7 +120,7 @@ def Signup(request):
 
 	return render(request, 'signup.html', context)
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def EditProfile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
@@ -146,7 +146,7 @@ def EditProfile(request, username):
 
 	return render(request, 'edit_profile.html', context)
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def follow(request, username, option):
 	following = get_object_or_404(User, username=username)
 
@@ -168,7 +168,7 @@ def follow(request, username, option):
 	except User.DoesNotExist:
 		return HttpResponseRedirect(reverse('profile', args=[username]))
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def Inbox(request):
 	users = User.objects.all()
 	messages = Message.get_messages(user=request.user)
@@ -195,7 +195,7 @@ def Inbox(request):
 
 	return HttpResponse(template.render(context, request))
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def UserSearch(request):
 	query = request.GET.get("q")
 	context = {}
@@ -216,7 +216,7 @@ def UserSearch(request):
 	
 	return HttpResponse(template.render(context, request))
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def Directs(request, username):
 	user = request.user
 	messages = Message.get_messages(user=user)
@@ -238,7 +238,7 @@ def Directs(request, username):
 
 	return HttpResponse(template.render(context, request))
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def NewConversation(request, username):
 	from_user = request.user
 	body = ''
@@ -250,7 +250,7 @@ def NewConversation(request, username):
 		Message.send_message(from_user, to_user, body)
 	return redirect('inbox')
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def SendDirect(request):
 	# to_user = User.objects.get(username=username)
     

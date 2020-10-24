@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load static %} {% load humanize %} {% block content %} {% for notification in notifications %} {% if notification.notification_type == 2 %}
+{% extends 'base.html' %} {% load static %} {% load humanize %} 
+{% block content %} 
+    {% for notification in notifications %} 
+        {% if notification.notification_type == 2 %}
 <div class="notification">
     <a href="{% url 'delete-notification' notification.id %}" class="btn btn-danger btn-rounded">Remove</a>
     <!-- Grid row -->

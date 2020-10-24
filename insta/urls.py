@@ -23,8 +23,11 @@ from ig.views import UserProfile, UserProfileFavorites, follow
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('accounts/', include('django_registration.backends.one_step.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', include('post.urls')),
     path('ig/', include('ig.urls')),
+    path('notifications/', include('notifications.urls')),
     path('profile/<username>/', UserProfile, name='profile'),
     path('profile/<username>/saved', UserProfile, name='profilefavorites'),
     path('profile/<username>/follow/<option>', follow, name='follow'),

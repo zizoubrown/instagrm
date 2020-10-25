@@ -1,3 +1,5 @@
+{% load static %}
+{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,10 +42,12 @@
         {% csrf_token %}
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
-            <input type="text" name="username" class="form-control" placeholder="Username" required="required">
+            <label class="label is-medium">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Username" required="required" onfocus="this.value=''" value="{{ form.username }}"><br>
         </div>
         <div class="form-group">
-            <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+            <label class="label is-medium">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password" required="required" onfocus="this.value=''" value="{{ form.password }}"><br>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>

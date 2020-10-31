@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 from django.db.models.signals import post_save, post_delete
 from django.utils.text import slugify
@@ -35,7 +36,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	picture =  models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=False)
+	picture =  CloudinaryField('picture')
 	caption = models.TextField(max_length=1500, verbose_name='Caption')
 	posted = models.DateTimeField(auto_now_add=True)
 	tags = models.ManyToManyField(Tag, related_name='tags')

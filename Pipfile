@@ -16,6 +16,7 @@ config = "*"
 importlib-metadata = "*"
 zipp = "*"
 django-registration = "*"
+cloudinary = "*"
 
 [dev-packages]
 

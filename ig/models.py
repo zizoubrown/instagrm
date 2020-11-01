@@ -31,7 +31,7 @@ class Profile(models.Model):
 	profile_info = models.TextField(max_length=150, null=True, blank=True)
 	created = models.DateField(auto_now_add=True)
 	favorites = models.ManyToManyField(Post)
-	picture = CloudinaryField('picture')
+	picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Picture')
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)

@@ -104,7 +104,7 @@ def NewPost(request):
 				t, created = Tag.objects.get_or_create(title=tag)
 				tags_objs.append(t)
 
-			p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
+			p, created = Post.objects.get_or_create( caption=caption, user_id=user, picture=picture)
 			p.tags.set(tags_objs)
 			p.save()
 			return redirect('index')
